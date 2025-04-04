@@ -27,7 +27,7 @@ To run this project locally, follow these steps:
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/your-repo/RAG-ChatBot-With-Gemini.git
+   git clone https://github.com/AbhiMAtGitHub/ChatBot_Project.git
    cd RAG-ChatBot-With-Gemini
    ```
 
