@@ -6,18 +6,24 @@ API_URL = "http://localhost:7077"
 st.title("🤖 RAG Chatbot with Gemini")
 
 # File Upload Section
-st.sidebar.header("📂 Upload a PDF")
-uploaded_file = st.sidebar.file_uploader("Choose a PDF file", type="pdf")
+st.sidebar.header("📂 Upload PDFs")
+uploaded_files = st.sidebar.file_uploader("Choose PDF files", type="pdf", accept_multiple_files=True)
 
-if uploaded_file and st.sidebar.button("📤 Upload File"):  # Upload only when the button is clicked
+if uploaded_files and st.sidebar.button("📤 Upload Files"):
     with st.sidebar:
         st.write("Uploading...")
-        files = {"file": uploaded_file.getvalue()}
+        files = [("files", (file.name, file.getvalue(), "application/pdf")) for file in uploaded_files]
         res = requests.post(f"{API_URL}/upload/", files=files)
+        
         if res.status_code == 200:
-            st.success(res.json()["message"])
+            response = res.json()
+            for file_status in response["details"]:
+                if "Processed successfully" in file_status["status"]:
+                    st.success(f"{file_status['filename']} ✅")
+                else:
+                    st.error(f"{file_status['filename']} ❌ {file_status['status']}")
         else:
-            st.error("Failed to upload PDF.")
+            st.error("Failed to upload PDFs.")
 
 # Chat Section
 st.subheader("💬 Chat with your AI")
