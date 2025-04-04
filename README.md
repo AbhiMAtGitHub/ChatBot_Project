@@ -1,48 +1,65 @@
 # RAG-ChatBot-With-Gemini
-This Project contains a Chatbot built using LangChain for PDF query handling, FAISS for vector storage, Google Generative AI (Gemini model) for conversational responses, and Streamlit for the web interface. The chatbot can read PDF files, generate text chunks, store them in a vector store, and provide intelligent responses based on user queries.
+This project is a RAG-based chatbot built using LangChain for document processing, ChromaDB for vector storage, Google Generative AI (Gemini 1.5 Pro) for conversational responses, and Streamlit for the web interface. The chatbot processes uploaded PDFs, extracts text, stores embeddings, and answers user queries intelligently using retrieved document context.
+
 # Features
-- **PDF Processing:** Upload a PDF document, and the app will extract and split its text into manageable chunks.
-- **Vector Storage with FAISS:** The text chunks are stored in a FAISS vector database to enable similarity-based retrieval.
-- **Generative AI for Responses:** Uses Google Generative AI (Gemini 1.5 Pro) to provide conversational answers based on retrieved content.
-- **Real-time Interaction:** User can ask questions related to the PDF, and the app will return concise, relevant answers.
+- **PDF Processing:** Upload a PDF, and the chatbot extracts text and processes it for retrieval.
+- **Vector Storage with ChromaDB:** Text chunks are embedded and stored in a ChromaDB vector database for retrieval.
+- **Generative AI for Responses:** Uses Google Gemini 1.5 Pro to generate detailed, informative answers.
+- **Real-time Interaction:** Users can ask questions related to the PDF, and the app provides accurate responses.
+- **Memory Retention:** Maintains conversation history to provide contextual responses.
+- **FastAPI Backend:** API endpoints for PDF upload, querying, and clearing data.
 # Technologies Used
-- **LangChain:** To manage document loading, text chunking, and retrieval chains.
-- **FAISS:** Vector search engine for storing and retrieving text chunks based on similarity.
-- **Google Generative AI (Gemini):** The conversational AI engine for generating responses.
+- **LangChain:** Framework for document processing and retrieval.
+- **ChromaDB:** High-performance vector database for storing embeddings.
+- **Google Generative AI (Gemini 1.5 Pro):** LLM for generating intelligent responses.
 - **Streamlit:** Web-based framework for creating interactive UIs.
+- **FastAPI:** Backend framework for API endpoints.
 - **Python:** For all backend functionality.
 
 # Installation
 To run this project locally, follow these steps:
 1. Clone the repository:
-git clone https://github.com/Waseem2212/RAG-ChatBot-With-Gemini
+git clone https://github.com/your-repo/RAG-ChatBot-With-Gemini.git
+cd RAG-ChatBot-With-Gemini
 
 2. Install the dependencies:
 pip install -r requirements.txt
-3. Set up your API keys:
+3. Set up your API keys(Create a .env file and add your Google AI API key:):
 GOOGLE_API_KEY=your-google-generative-ai-key
-4. Run the application:
-streamlit run chatbot.py
+4. Start FastAPI Backend:
+uvicorn app.main:app --host 0.0.0.0 --port 7077 --reload --log-level debug
+5. Run Streamlit Frontend:
+cd frontend
+streamlit run chatbot_ui.py
 
 # Project Structure
-📦 rag-application
-│
-
-├── chatbot.py            # Main application logic
-
-├── requirements.txt      # Python dependencies
-
-└── README.md             # Project documentation
+📦 RAG-ChatBot-With-Gemini
+├── 📁 app
+│   ├── 📁 services          # Core services (vector storage, chatbot logic)
+│   ├── 📁 config            # Configuration settings
+│   ├── 📁 routes            # FastAPI endpoints
+│   ├── main.py              # FastAPI main entry point
+├── 📁 frontend
+│   ├── chatbot_ui.py        # Streamlit UI
+├── requirements.txt         # Project dependencies
+├── README.md                # Project documentation
 
 # How It Works
-1. **PDF Loading:** The app uses PyPDFLoader to load and extract text from a provided PDF.
+1. **PDF Upload:**  Users upload a PDF file, and text is extracted and processed into chunks.
 
-2. **Text Chunking:** The text is split into smaller chunks using RecursiveCharacterTextSplitter for better processing and retrieval.
+2. **Embedding & Storage:** Extracted text chunks are embedded using Google AI embeddings and stored in ChromaDB.
 
-3. **Vector Storage:** The text chunks are embedded using Google Generative AI embeddings and stored in a FAISS vector store for efficient similarity search.
+3. **Query Processing:** When a user asks a question, relevant document chunks are retrieved using mmr technique.
 
-4. **Question Answering:** When the user asks a question, relevant text chunks are retrieved from the vector store, and Google Generative AI generates a concise answer based on this content.
-5. **Real-Time Responses:** The response is displayed in the Streamlit chat interface.
+4. **AI Response Generation:** The Gemini 1.5 Pro model generates a contextual response based on retrieved information and past chat history.
+5. **Real-Time Chat:** The chatbot responds interactively via the Streamlit UI.
 
+# API Endpoints
+1. **PDF Upload:**  Users upload a PDF file, and text is extracted and processed into chunks.
 
+2. **Embedding & Storage:** Extracted text chunks are embedded using Google AI embeddings and stored in ChromaDB.
 
+3. **Query Processing:** When a user asks a question, relevant document chunks are retrieved using mmr technique.
+
+4. **AI Response Generation:** The Gemini 1.5 Pro model generates a contextual response based on retrieved information and past chat history.
+5. **Real-Time Chat:** The chatbot responds interactively via the Streamlit UI.
