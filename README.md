@@ -53,13 +53,3 @@ streamlit run chatbot_ui.py
 
 4. **AI Response Generation:** The Gemini 1.5 Pro model generates a contextual response based on retrieved information and past chat history.
 5. **Real-Time Chat:** The chatbot responds interactively via the Streamlit UI.
-
-# API Endpoints
-1. **PDF Upload:**  Users upload a PDF file, and text is extracted and processed into chunks.
-
-2. **Embedding & Storage:** Extracted text chunks are embedded using Google AI embeddings and stored in ChromaDB.
-
-3. **Query Processing:** When a user asks a question, relevant document chunks are retrieved using mmr technique.
-
-4. **AI Response Generation:** The Gemini 1.5 Pro model generates a contextual response based on retrieved information and past chat history.
-5. **Real-Time Chat:** The chatbot responds interactively via the Streamlit UI.
