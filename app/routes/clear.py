@@ -3,7 +3,7 @@ from app.services.chatbot import memory  #Import memory properly
 
 router = APIRouter()
 
-@router.delete("/clear/")
+@router.delete("/clear")
 async def clear_chat():
     """Clears only the chat memory (not the vectorstore)."""
     try:
