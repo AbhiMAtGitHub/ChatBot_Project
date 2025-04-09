@@ -6,7 +6,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 router = APIRouter()
 
-@router.post("/upload/")
+@router.post("/upload")
 async def upload_files(files: list[UploadFile] = File(...)):
     if not files:
         raise HTTPException(status_code=400, detail="No files uploaded!")

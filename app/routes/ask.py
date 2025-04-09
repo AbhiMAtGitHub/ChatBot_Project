@@ -7,7 +7,7 @@ router = APIRouter()
 class QueryRequest(BaseModel):
     query: str
 
-@router.post("/ask/")
+@router.post("/ask")
 async def ask_question(request: QueryRequest):
     try:
         response = get_response(request.query)
